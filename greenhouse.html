@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <!-- Use the Source, Luke -->
+  <head>
+    <title>Histo Do</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+circle.node {
+  cursor: pointer;
+  stroke: #000;
+  stroke-width: .5px;
+}
+
+circle.node.directory {
+  stroke: #9ecae1;
+  stroke-width: 2px;
+}
+
+circle.node.collapsed {
+  stroke: #555;
+}
+
+.nodetext {
+  fill: #252929;
+  font-weight: bold;
+  text-shadow: 0 0 0.2em white;
+}
+
+line.link {
+  fill: none;
+  stroke: #9ecae1;
+  stroke-width: 1.5px;
+}
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="container">
+        <h1>Histo Do</h1>
+        <p class="lead">Built with <a href="https://github.com/mbostock/d3">d3.js</a>. Inspired by <a href="http://www.redotheweb.com/CodeFlower/">Code Flower</a>.</p>
+        <div id="visualization"></div>
+        <h2>Purpose</h2>
+        <ul class="unstyled">
+          <li>Keep track of your todos.</li>
+        </ul>
+        <h2>Input data format</h2>
+        <p>The <code>jsonData</code> format taken as input to
+        <code>update()</code> is extremely simple. It's a JavaScript object
+        representing a file tree structure. Each node must have a
+        <code>name</code> (the file or directory name), leaf nodes must have a
+        <code>size</code> (the number of lines of code or the file), and
+        directory nodes must have a <code>children</code> property containing
+        an array of nodes.</p>
+        <form id="jsonInput">
+        <fieldset>
+          <textarea id="jsonData">{a: 1}</textarea>
+          <div class="pull-right">
+            <button type="submit" class="btn btn-primary btn-large">Update</button>
+          </div>
+        </fieldset>
+        </form>
+        <h2>Generating JSON for a project</h2>
+        <p> to do </p>
+        <h2>Sharing your CodeFlowers</h2>
+        <p>The best way to share your CodeFlowers is to use <a
+          href="http://pages.github.com/">GitHub Pages</a>, just like this very
+        page. So just fork the <a
+          href="https://github.com/fzaninotto/CodeFlower"><code>fzaninotto/CodeFlower</code></a>
+        repository, add your own JSON data under the <code>data</code>
+        directory, update the options of the dropdown list in the
+        <code>index.html</code> file accordingly, commit the code, and push to
+        the <code>gh-pages</code> branch. GitHub will publish the result for
+        you.</p>
+      </div>
+    </div>
+    <script type="text/javascript" src="d3.js"></script>
+    <script type="text/javascript" src="d3.geom.js"></script>
+    <script type="text/javascript" src="d3.layout.js"></script>
+    <script type="text/javascript" src="CodeFlower.js"></script>
+    <script type="text/javascript" src="dataConverter.js"></script>
+    <script type="text/javascript">
+      var currentCodeFlower;
+      var createCodeFlower = function(json) {
+        // update the jsonData textarea
+        document.getElementById('jsonData').value = JSON.stringify(json);
+        // remove previous flower to save memory
+        if (currentCodeFlower) currentCodeFlower.cleanup();
+        // adapt layout size to the total number of elements
+        //var total = countElements(json);
+        var total = 400
+        w = parseInt(Math.sqrt(total) * 30, 10);
+        h = parseInt(Math.sqrt(total) * 30, 10);
+        // create a new CodeFlower
+        currentCodeFlower = new CodeFlower("#visualization", w, h).update(json);
+      };
+
+createCodeFlower(
+    {"name":"root","children":[{"name":"app","children":[{"name":"dashboard","children":[{"name":"public","children":[{"name":"stylesheets","children":[{"name":"bootstrap.css","size":4945,"language":"CSS"},{"name":"style.css","size":254,"language":"CSS"},{"name":"jquery.tagsinput.css","size":7,"language":"CSS"}],"size":5206},{"name":"javascripts","size":508}],"size":5714},{"name":"app.js","size":126,"language":"Javascript"}],"size":5840},{"name":"api","children":[{"name":"routes","size":227},{"name":"app.js","size":59,"language":"Javascript"}],"size":286}],"size":6126},{"name":"lib","size":1139},{"name":"models","size":857},{"name":"test","children":[{"name":"lib","children":[{"name":"test_intervalBuilder.js","size":133,"language":"Javascript"}],"size":133}],"size":133},{"name":"fixtures","size":247},{"name":"plugins","size":122},{"name":"app.js","size":75,"language":"Javascript"},{"name":"config","children":[{"name":"default.yaml","size":36,"language":"YAML"},{"name":"test.yaml","size":4,"language":"YAML"}],"size":40},{"name":"bootstrap.js","size":32,"language":"Javascript"},{"name":"monitor.js","size":4,"language":"Javascript"},{"name":"makefile","size":3,"language":"make"}],"nbFiles":81,"size":8778}
+    
+    );
+
+      document.getElementById('jsonInput').addEventListener('submit', function(e) {
+        e.preventDefault();
+        document.getElementById('visualization').scrollIntoView();
+        var json = JSON.parse(document.getElementById('jsonData').value);
+        currentCodeFlower.update(json);
+      });
+    </script>
+  </body>
+</html>
+
