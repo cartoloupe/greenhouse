@@ -2,7 +2,7 @@
 <html>
   <!-- Use the Source, Luke -->
   <head>
-    <title>Histo Do</title>
+    <title>greenhouse</title>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style type="text/css">
@@ -37,8 +37,8 @@ line.link {
   <body>
     <div class="content">
       <div class="container">
-        <h1>Histo Do</h1>
-        <p class="lead">Built with <a href="https://github.com/mbostock/d3">d3.js</a>. Inspired by <a href="http://www.redotheweb.com/CodeFlower/">Code Flower</a>.</p>
+        <h1>greenhouse</h1>
+        <p class="lead">built with <a href="https://github.com/mbostock/d3">d3.js</a>; inspired by <a href="http://www.redotheweb.com/CodeFlower/">Code Flower</a></p>
         <div id="visualization"></div>
         <h2>Purpose</h2>
         <ul class="unstyled">
@@ -54,24 +54,12 @@ line.link {
         an array of nodes.</p>
         <form id="jsonInput">
         <fieldset>
-          <textarea id="jsonData">{a: 1}</textarea>
+          <textarea id="jsonData">{"name": "something", "size": 400}</textarea>
           <div class="pull-right">
             <button type="submit" class="btn btn-primary btn-large">Update</button>
           </div>
         </fieldset>
         </form>
-        <h2>Generating JSON for a project</h2>
-        <p> to do </p>
-        <h2>Sharing your CodeFlowers</h2>
-        <p>The best way to share your CodeFlowers is to use <a
-          href="http://pages.github.com/">GitHub Pages</a>, just like this very
-        page. So just fork the <a
-          href="https://github.com/fzaninotto/CodeFlower"><code>fzaninotto/CodeFlower</code></a>
-        repository, add your own JSON data under the <code>data</code>
-        directory, update the options of the dropdown list in the
-        <code>index.html</code> file accordingly, commit the code, and push to
-        the <code>gh-pages</code> branch. GitHub will publish the result for
-        you.</p>
       </div>
     </div>
     <script type="text/javascript" src="d3.js"></script>
