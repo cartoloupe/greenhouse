@@ -62,29 +62,29 @@ line.link {
         </form>
       </div>
     </div>
-    <script type="text/javascript" src="d3.js"></script>
-    <script type="text/javascript" src="d3.geom.js"></script>
-    <script type="text/javascript" src="d3.layout.js"></script>
-    <script type="text/javascript" src="CodeFlower.js"></script>
-    <script type="text/javascript" src="dataConverter.js"></script>
+    <script type="text/javascript" src="lib/d3.js"></script>
+    <script type="text/javascript" src="lib/d3.geom.js"></script>
+    <script type="text/javascript" src="lib/d3.layout.js"></script>
+    <script type="text/javascript" src="lib/dataConverter.js"></script>
+    <script type="text/javascript" src="src/greenhouse.js"></script>
     <script type="text/javascript">
-      var currentCodeFlower;
-      var createCodeFlower = function(json) {
+      var currentGreenhouse;
+      var createGreenhouse = function(json) {
         // update the jsonData textarea
         document.getElementById('jsonData').value = JSON.stringify(json);
         // remove previous flower to save memory
-        if (currentCodeFlower) currentCodeFlower.cleanup();
+        if (currentGreenhouse) currentGreenhouse.cleanup();
         // adapt layout size to the total number of elements
         //var total = countElements(json);
         var total = 400
         w = parseInt(Math.sqrt(total) * 30, 10);
         h = parseInt(Math.sqrt(total) * 30, 10);
-        // create a new CodeFlower
-        currentCodeFlower = new CodeFlower("#visualization", w, h).update(json);
+        // create a new Greenhouse
+        currentGreenhouse = new Greenhouse("#visualization", w, h).update(json);
       };
 
-createCodeFlower(
-    {"name":"root","children":[{"name":"app","children":[{"name":"dashboard","children":[{"name":"public","children":[{"name":"stylesheets","children":[{"name":"bootstrap.css","size":4945,"language":"CSS"},{"name":"style.css","size":254,"language":"CSS"},{"name":"jquery.tagsinput.css","size":7,"language":"CSS"}],"size":5206},{"name":"javascripts","size":508}],"size":5714},{"name":"app.js","size":126,"language":"Javascript"}],"size":5840},{"name":"api","children":[{"name":"routes","size":227},{"name":"app.js","size":59,"language":"Javascript"}],"size":286}],"size":6126},{"name":"lib","size":1139},{"name":"models","size":857},{"name":"test","children":[{"name":"lib","children":[{"name":"test_intervalBuilder.js","size":133,"language":"Javascript"}],"size":133}],"size":133},{"name":"fixtures","size":247},{"name":"plugins","size":122},{"name":"app.js","size":75,"language":"Javascript"},{"name":"config","children":[{"name":"default.yaml","size":36,"language":"YAML"},{"name":"test.yaml","size":4,"language":"YAML"}],"size":40},{"name":"bootstrap.js","size":32,"language":"Javascript"},{"name":"monitor.js","size":4,"language":"Javascript"},{"name":"makefile","size":3,"language":"make"}],"nbFiles":81,"size":8778}
+createGreenhouse(
+    {"name":"root","children":[{"name":"app","children":[{"name":"dashboard","children":[{"name":"public","children":[{"name":"stylesheets","children":[{"name":"bootstrap.css","size":4945,"language":"CSS"},{"name":"style.css","size":254,"language":"CSS"},{"name":"jquery.tagsinput.css","size":7,"language":"CSS"}],"size":5206},{"name":"javascripts","size":508}],"size":5714},{"name":"app.js","size":126,"language":"Javascript"}],"size":5840},{"name":"api","size":286}],"size":6126},{"name":"lib","size":1139},{"name":"models","size":857},{"name":"test","size":133},{"name":"fixtures","size":247},{"name":"plugins","size":122},{"name":"app.js","size":75,"language":"Javascript"},{"name":"config","size":40},{"name":"bootstrap.js","size":32,"language":"Javascript"},{"name":"monitor.js","size":4,"language":"Javascript"},{"name":"makefile","size":3,"language":"make"}],"nbFiles":81,"size":8778}
     
     );
 
@@ -92,7 +92,7 @@ createCodeFlower(
         e.preventDefault();
         document.getElementById('visualization').scrollIntoView();
         var json = JSON.parse(document.getElementById('jsonData').value);
-        currentCodeFlower.update(json);
+        currentGreenhouse.update(json);
       });
     </script>
   </body>

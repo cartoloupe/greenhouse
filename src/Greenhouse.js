@@ -1,4 +1,4 @@
-var CodeFlower = function(selector, w, h) {
+var Greenhouse = function(selector, w, h) {
   this.w = w;
   this.h = h;
 
@@ -21,7 +21,7 @@ var CodeFlower = function(selector, w, h) {
     .size([h, w]);
 };
 
-CodeFlower.prototype.update = function(json) {
+Greenhouse.prototype.update = function(json) {
   if (json) this.json = json;
 
   this.json.fixed = true;
@@ -32,7 +32,7 @@ CodeFlower.prototype.update = function(json) {
   var links = d3.layout.tree().links(nodes);
   var total = nodes.length || 1;
 
-  // remove existing text (will readd it afterwards to be sure it's on top)
+  // remove existing text (will read it afterwards to be sure it's on top)
   this.svg.selectAll("text").remove();
 
   // Restart the force layout
@@ -90,7 +90,7 @@ CodeFlower.prototype.update = function(json) {
   return this;
 };
 
-CodeFlower.prototype.flatten = function(root) {
+Greenhouse.prototype.flatten = function(root) {
   var nodes = [], i = 0;
 
   function recurse(node) {
@@ -108,7 +108,7 @@ CodeFlower.prototype.flatten = function(root) {
   return nodes;
 };
 
-CodeFlower.prototype.click = function(d) {
+Greenhouse.prototype.click = function(d) {
   // Toggle children on click.
   if (d.children) {
     d._children = d.children;
@@ -120,17 +120,17 @@ CodeFlower.prototype.click = function(d) {
   this.update();
 };
 
-CodeFlower.prototype.mouseover = function(d) {
+Greenhouse.prototype.mouseover = function(d) {
   this.text.attr('transform', 'translate(' + d.x + ',' + (d.y - 5 - (d.children ? 3.5 : Math.sqrt(d.size) / 2)) + ')')
     .text(d.name + ": " + d.size + " loc")
     .style('display', null);
 };
 
-CodeFlower.prototype.mouseout = function(d) {
+Greenhouse.prototype.mouseout = function(d) {
   this.text.style('display', 'none');
 };
 
-CodeFlower.prototype.tick = function() {
+Greenhouse.prototype.tick = function() {
   var h = this.h;
   var w = this.w;
   this.link.attr("x1", function(d) { return d.source.x; })
@@ -143,7 +143,7 @@ CodeFlower.prototype.tick = function() {
   });
 };
 
-CodeFlower.prototype.cleanup = function() {
+Greenhouse.prototype.cleanup = function() {
   this.update([]);
   this.force.stop();
 };
