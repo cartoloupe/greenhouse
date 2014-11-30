@@ -83,9 +83,15 @@ line.link {
         currentGreenhouse = new Greenhouse("#visualization", w, h).update(json);
       };
 
+// createGreenhouse( {"name":"root","children":[{"name":"app","children":[{"name":"dashboard","children":[{"name":"public","children":[{"name":"stylesheets","children":[{"name":"bootstrap.css","size":4945,"language":"CSS"},{"name":"style.css","size":254,"language":"CSS"},{"name":"jquery.tagsinput.css","size":7,"language":"CSS"}],"size":5206},{"name":"javascripts","size":508}],"size":5714},{"name":"app.js","size":126,"language":"Javascript"}],"size":5840},{"name":"api","size":286}],"size":6126},{"name":"lib","size":1139},{"name":"models","size":857},{"name":"test","size":133},{"name":"fixtures","size":247},{"name":"plugins","size":122},{"name":"app.js","size":75,"language":"Javascript"},{"name":"config","size":40},{"name":"bootstrap.js","size":32,"language":"Javascript"},{"name":"monitor.js","size":4,"language":"Javascript"},{"name":"makefile","size":3,"language":"make"}],"nbFiles":81,"size":8778} );
+
 createGreenhouse(
-    {"name":"root","children":[{"name":"app","children":[{"name":"dashboard","children":[{"name":"public","children":[{"name":"stylesheets","children":[{"name":"bootstrap.css","size":4945,"language":"CSS"},{"name":"style.css","size":254,"language":"CSS"},{"name":"jquery.tagsinput.css","size":7,"language":"CSS"}],"size":5206},{"name":"javascripts","size":508}],"size":5714},{"name":"app.js","size":126,"language":"Javascript"}],"size":5840},{"name":"api","size":286}],"size":6126},{"name":"lib","size":1139},{"name":"models","size":857},{"name":"test","size":133},{"name":"fixtures","size":247},{"name":"plugins","size":122},{"name":"app.js","size":75,"language":"Javascript"},{"name":"config","size":40},{"name":"bootstrap.js","size":32,"language":"Javascript"},{"name":"monitor.js","size":4,"language":"Javascript"},{"name":"makefile","size":3,"language":"make"}],"nbFiles":81,"size":8778}
-    
+    {"name":"root","children":[{"name":"app","size":1126},{"name":"lib","children":
+    [
+    {"name":"childchild","size":900},
+    {"name":"childtwo","size":1100}
+    ],
+    "size":1139}],"nbFiles":81,"size":1778}
     );
 
       document.getElementById('jsonInput').addEventListener('submit', function(e) {
