@@ -2,6 +2,11 @@ var Greenhouse = function(selector, w, h) {
   this.w = w;
   this.h = h;
 
+
+  this.testnode = {"name":"gc","size":1500};
+
+
+
   d3.select(selector).selectAll("svg").remove();
 
   this.svg = d3.select(selector).append("svg:svg")
@@ -93,35 +98,56 @@ Greenhouse.prototype.update = function(json) {
 Greenhouse.prototype.flatten = function(root) {
   var nodes = [], i = 0;
 
-  function recurse(node) {
+  function recurse(node, parent_id) {
+    node.parent_id = parent_id;
+    if (!node.id) node.id = ++i;
     if (node.children) {
       node.size = node.children.reduce(function(p, v) {
-        return p + recurse(v);
+        return p + recurse(v,node.id);
       }, 0);
+      node.children_ids = node.children.map(function(item) {
+        return item.id
+      });
     }
-    if (!node.id) node.id = ++i;
     nodes.push(node);
     return node.size;
   }
 
-  root.size = recurse(root);
+  root.size = recurse(root, null);
   return nodes;
 };
 
 Greenhouse.prototype.click = function(d) {
   // Toggle children on click.
   if (d.children) {
+    console.log("d has children");
     d._children = d.children;
     d.children = null;
   } else {
+    console.log("d has no children");
     d.children = d._children;
     d._children = null;
   }
+  this.add(d);
+  this.update();
+};
+
+Greenhouse.prototype.add = function(d) {
+  var nodes = this.flatten(this.json);
+
+  console.log("d is " + d);
+  if (d.children) {
+    console.log("children of d is " + d.children);
+  }
+
   this.update();
 };
 
 Greenhouse.prototype.mouseover = function(d) {
-  this.text.attr('transform', 'translate(' + d.x + ',' + (d.y - 5 - (d.children ? 3.5 : Math.sqrt(d.size) / 2)) + ')')
+  this.text.attr('transform', 'translate(' +
+    d.x + ',' +
+    (d.y - 5 - (d.children ? 3.5 : Math.sqrt(d.size) / 2)) +
+    ')')
     .text(d.name + ": " + d.size + " loc")
     .style('display', null);
 };
