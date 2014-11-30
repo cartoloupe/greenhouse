@@ -13,52 +13,26 @@ describe("Greenhouse", function() {
     expect(greenhouse.h).toEqual(h);
   });
 
-  xit("should be able to play a Song", function() {
-    player.play(song);
-    expect(player.currentlyPlayingSong).toEqual(song);
+});
 
-    //demonstrates use of custom matcher
-    expect(player).toBePlaying(song);
+describe("#find_by_kv", function() {
+  var greenhouse;
+  function find_by_kv(kv, json){
+    console.log("kv is " + kv);
+    console.log("k is " + kv[0]);
+    console.log("v is " + kv[1]);
+
+
+    return json;
+  };
+
+
+  beforeEach(function() {
+    json = {"id":1, "children":[], "data":"yes"};
   });
 
-  describe("when song has been paused", function() {
-    beforeEach(function() {
-      player.play(song);
-      player.pause();
-    });
-
-    xit("should indicate that the song is currently paused", function() {
-      expect(player.isPlaying).toBeFalsy();
-
-      // demonstrates use of 'not' with a custom matcher
-      expect(player).not.toBePlaying(song);
-    });
-
-    xit("should be possible to resume", function() {
-      player.resume();
-      expect(player.isPlaying).toBeTruthy();
-      expect(player.currentlyPlayingSong).toEqual(song);
-    });
+  it("finds kv", function() {
+    expect(find_by_kv(["id",1], json)).toEqual(json);
   });
 
-  // demonstrates use of spies to intercept and test method calls
-  xit("tells the current song if the user has made it a favorite", function() {
-    spyOn(song, 'persistFavoriteStatus');
-
-    player.play(song);
-    player.makeFavorite();
-
-    expect(song.persistFavoriteStatus).toHaveBeenCalledWith(true);
-  });
-
-  //demonstrates use of expected exceptions
-  describe("#resume", function() {
-    xit("should throw an exception if song is already playing", function() {
-      player.play(song);
-
-      expect(function() {
-        player.resume();
-      }).toThrowError("song is already playing");
-    });
-  });
 });
